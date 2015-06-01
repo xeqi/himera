@@ -53,7 +53,7 @@
   (fn [req]
     (if-let [body (and (clj-request? req) (:body req))]
       (let [bstr (slurp body)
-            clj-params (binding [*read-eval* false]
+            clj-params (binding [reader/*read-eval* false]
                          (reader/read-string {:read-cond :allow :features #{:cljs}} bstr))
             req* (assoc req
                    :clj-params clj-params
